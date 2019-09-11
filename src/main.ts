@@ -1,12 +1,21 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+//import polyfills
+import 'core-js/es/reflect'
+import 'zone.js/dist/zone'
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+// import angular2 dpes
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {setUpLocationSync} from '@angular/router/upgrade';
+import {Ng1AppModule} from './ng1_app';
+import {Ng2AppModule} from './ng2_app';
 
-if (environment.production) {
-  enableProdMode();
-}
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+/**
+ * We bootstrap the Angular 2 module first, and then, once it's done,
+ * bootstrap the Angular 1 module.
+ */
+platformBrowserDynamic().bootstrapModule(Ng2AppModule)
+.then(ref => {
+  const upgrade = (<any>ref.instance).upgrade;
+  // bootstrap angular1
+  upgrade.bootstrap(document.body, [Ng1AppModule.name]);
+  setUpLocationSync(upgrade);
+});

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-with-handson": {
+    "TestApp": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-with-handson",
+            "outputPath": "dist/TestApp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -26,7 +26,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/angular/angular.js",
+              "node_modules/angular-resource/angular-resource.js",
+              "node_modules/angular-route/angular-route.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -63,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-with-handson:build"
+            "browserTarget": "TestApp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-with-handson:build:production"
+              "browserTarget": "TestApp:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-with-handson:build"
+            "browserTarget": "TestApp:build"
           }
         },
         "test": {
@@ -111,15 +115,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-with-handson:serve"
+            "devServerTarget": "TestApp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-with-handson:serve:production"
+              "devServerTarget": "TestApp:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "angular-with-handson"
+  "defaultProject": "TestApp"
 }
